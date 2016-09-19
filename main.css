@@ -1,0 +1,12 @@
+#clase1 {
+  color: #f8aec9;
+  margin-left: 500px;
+}
+
+#clase1:click {
+  color: red;
+}
+
+.clase1 {
+  font-size: 20px;
+}
