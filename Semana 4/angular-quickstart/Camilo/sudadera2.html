@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <title>oli</title>
+        <script src="../node_modules/mathjs/dist/math.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    </head>
+    <body>
+
+        <div>pruebas</div>
+        <div>
+          Tamano Matriz:
+          <input type="text" name="name" id="tamano">
+          <button onclick="newton()"  >Agregar a Watchlist?</button>
+          <br>
+          <div id="pegar"></div>
+          <!--  <input type="text"
+                   id="mat00" value="">
+                   <input type="text"
+                          id="mat01" >
+                          <input type="text"
+                                 id="mat02" >
+          <br>
+
+            <input type="text" id="mat10"
+                   value="">
+                   <input type="text"
+                          id="mat11" >
+                          <input type="text"
+                                 id="mat12" >
+                                 <br>
+
+              <input type="text" id="mat20"
+                    value="">
+                <input type="text"
+                    id="mat21" >
+                 <input type="text"
+                    id="mat22" >-->
+
+            <script>
+
+function U() {
+
+}
+
+function L() {
+  
+}
+
+function lagranja(){
+var puntos = document.getElementById("tamano").value; 
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = puntoS.substr(c+1,cy-c-1);
+		entreUno = true;
+		t++;
+	}
+}
+
+var lagran = "";
+for(var i = 0; i < x.length; i++){
+var lagrang = "";
+var div = 0;
+var divF = 1;
+	for(var j = 0; j < x.length; j++){
+		if (i != j) {
+			div = x[i] - x[j];
+			divF = divF *div;
+			if(x[j] >= 0){
+				var xS = String(x[j]);
+				lagrang = lagrang.concat("(x-"+ xS + ")");
+			}else {			
+				var xS = x[j]*-1;
+				var xS = String(xS);
+				lagrang = lagrang.concat("(x+"+ xS + ")");
+			}
+		}
+	}
+
+if(y[i] < 0 && divF < 0){
+y[i] = y[i] * -1;
+divF = divF * -1;
+
+}else if(divF < 0){
+y[i] = y[i] * -1;
+divF = divF * -1;
+}
+if(i == 0 ){
+lagran = lagran.concat("("+y[i]+"/"+divF+") ");
+}else if(y[i] < 0){
+lagran = lagran.concat("("+y[i]+"/"+divF+") ");
+}else{
+lagran = lagran.concat("+("+y[i]+"/"+divF+") ");
+}
+lagran = lagran.concat(lagrang);
+
+}
+console.log(lagran);
+}
+function newton(){
+var puntos = document.getElementById("tamano").value; 
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = parseFloat(puntoS.substr(c+1,cy-c-1));
+		entreUno = true;
+		t++;
+	}
+}
+var newton = "";
+var nwR = [];
+var j =0;
+for(var i = 0;i==i;i++){
+if(i == 0 && j == 0){
+	var xS = String(y[0]);
+	newton = xS;
+}
+if (y.length == 1){
+break;
+}
+var r = (y[i+1]-y[i])/(x[i+1+j]-x[i]);
+y[i]=r;
+if(i == 0){
+nwR[j] = r; 
+}
+if(i == y.length - 2){
+i = -1;
+j++;
+y.pop();
+}
+}
+for(var i = 0; i < nwR.length; i++){
+if(nwR[i] >= 0){
+			var xS = String(nwR[i]);
+			newton = newton.concat("+"+ xS);
+		}else {			
+			newton = newton.concat(nwR[i]);
+		}
+	for(var j = 0; j <= i; j++){
+		if(x[j] >= 0){
+			var xS = String(x[j]);
+			newton = newton.concat("(x-"+ xS + ")");
+		}else {			
+			var xS = x[j]*-1;
+			var xS = String(xS);
+			newton = newton.concat("(x+"+ xS + ")");
+		}
+	}
+}
+console.log(newton);
+}
+function equaciones() {
+  $( "#pegar" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    oli += '  <input type="text" id="mat' + i + '' + j +'">';
+  }
+  oli += '<br>';
+}
+
+$( "#pegar" ).append(oli);
+
+  /*
+            var mat00 = document.getElementById("mat00").value;
+            var mat01 = document.getElementById("mat01").value;
+            var mat02 = document.getElementById("mat02").value;
+            var mat10 = document.getElementById("mat10").value;
+            var mat11 = document.getElementById("mat11").value;
+            var mat12 = document.getElementById("mat12").value;
+            var mat20 = document.getElementById("mat20").value;
+            var mat21 = document.getElementById("mat21").value;
+            var mat22 = document.getElementById("mat22").value;
+
+
+            var array = [[mat00, mat01, mat02],[mat10, mat11, mat12],[mat20, mat21, mat22]];
+
+
+/*array.forEach(function (value, index, matrix) {
+  console.log('value:', value, 'index:', index);
+});
+
+var a = array[0][0];
+var b = array[1][0];
+var c = array[2][0];
+
+var L = [[a,0,0],[b,0,0],[c,0,0]];
+var U = [[1,0,0],[0,1,0],[0,0,1]];
+
+console.log(array[0][0]);
+
+
+var items = [[1,2],[3,4],[5,6]];
+alert(L[0][0]); // 1
+
+
+  //console.log(L[0,0]);
+
+*/
+};
+
+
+            </script>
+        </div>
+
+    </body>
+</html>

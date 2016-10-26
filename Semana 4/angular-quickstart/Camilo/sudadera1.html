@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <title>oli</title>
+        <script src="../node_modules/mathjs/dist/math.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    </head>
+    <body>
+
+        <div>pruebas</div>
+        <div>
+          Tamano Matriz:
+          <input type="text" name="name" id="lag">
+          <button onclick="runge()"  >la grange</button>
+		  Tamano Matriz:
+          <input type="text" name="name" id="nw">
+          <button onclick="newton()"  >newton</button>
+		  Tamano Matriz:
+          <input type="text" name="name" id="li">
+          <button onclick="splinesLineales()"  >lineal</button>
+		  Tamano Matriz:
+          <input type="text" name="name" id="cu">
+          <button onclick="splinesCuadraticos()"  >cubico</button>
+		  Tamano Matriz:
+          <input type="text" name="name" id="op">
+          <button onclick="operaciones()"  >operaciones</button>
+          <br>
+          <div id="pegar"></div>
+
+            <script>
+
+function euler (){
+var t = document.getElementById("lag").value;
+t = parseFloat(t);
+var t2 = document.getElementById("nw").value;
+t2 = parseFloat(t2);
+var y = document.getElementById("li").value;
+var ft = document.getElementById("cu").value;
+var h = document.getElementById("op").value;
+h = parseFloat(h);
+var error = 1.12515248574854;
+error = parseFloat(error);
+y = parseFloat(y);
+var scope;
+var yn;
+yn = parseFloat(yn);
+var yt;
+var code2;
+var fte = 0;
+var node2;
+if(t2 === ""){
+for(var i = 0;error != 0.0;i++){
+	if(i > 0){
+		yt = yn;
+		yn =  yn +h * fte;
+		error = yn - yt;
+	}
+	if(i==0){
+		yn = y;
+	}
+	scope = {
+    t: t,
+    y: yn
+};
+node2 = math.parse(ft, scope);
+code2 = node2.compile();
+fte = code2.eval(scope);
+t = t + h;
+t = t.toFixed(2);
+t = parseFloat(t);
+}
+}else{
+for(var i = 0;t != t2;i++){
+	if(i > 1){
+		yt = yn;
+		yn =  yn +h * fte;
+		error = yn - yt;
+	}
+	if(i==1){
+		yn = y;
+	}
+	scope = {
+    t: t,
+    y: yn
+	};
+	node2 = math.parse(ft, scope);
+	code2 = node2.compile();
+fte = code2.eval(scope);
+t = t + h;
+t = t.toFixed(2);
+t = parseFloat(t);
+}
+}
+console.log("f(t,y)"+yn);
+}
+
+function eulerModificado(){
+var t = document.getElementById("lag").value;
+t = parseFloat(t);
+var t2 = document.getElementById("nw").value;
+t2 = parseFloat(t2);
+var y = document.getElementById("li").value;
+var ft = document.getElementById("cu").value;
+var h = document.getElementById("op").value;
+h = parseFloat(h);
+var error = 1.12515248574854;
+error = parseFloat(error);
+y = parseFloat(y);
+var scope;
+var scope2;
+var yn;
+yn = parseFloat(yn);
+var yt;
+var code2;
+var code;
+var fte = 0;
+var node2;
+var node;
+var node3;
+var k;
+var ftk;
+if(t2 === ""){
+for(var i = 0;error != 0.0;i++){
+	if(i > 0){
+		yt = yn;
+		yn =  yn +h * (fte+ftk);
+		error = yn - yt;
+	}
+	if(i==0){
+		yn = y;
+	}
+	scope = {
+    t: t,
+    y: yn
+};
+node2 = math.parse(ft, scope);
+code2 = node2.compile();
+fte = code2.eval(scope);
+k = yn+h*fte;
+scope2 = {
+	t:t,
+	y:k
+	};
+
+node = math.parse(ft, scope2);
+code = node.compile();
+ftk = code.eval(scope2),
+t = t + h;
+t = t.toFixed(2);
+t = parseFloat(t);
+}
+}else{
+for(var i = 0;t != t2;i++){
+	if(i > 0){
+		yt = yn;
+		yn =  yn +h * (fte+ftk);
+		error = yn - yt;
+	}
+	if(i==0){
+		yn = y;
+	}
+	scope = {
+    t: t,
+    y: yn
+};
+node2 = math.parse(ft, scope);
+code2 = node2.compile();
+fte = code2.eval(scope);
+k = yn+h*fte;
+scope2 = {
+	t:t,
+	y:k
+	};
+
+node = math.parse(ft, scope2);
+code = node.compile();
+ftk = code.eval(scope2),
+t = t + h;
+t = t.toFixed(2);
+t = parseFloat(t);
+}
+}
+console.log("f(t,y)"+yn);
+}
+
+function runge(){
+var t1 = document.getElementById("lag").value;
+t1 = parseFloat(t1);
+var t2 = document.getElementById("nw").value;
+var y = document.getElementById("li").value;
+var ft = document.getElementById("cu").value;
+var h = document.getElementById("op").value;
+h = parseFloat(h);
+var error = 1.12515248574854;
+error = parseFloat(error);
+y = parseFloat(y);
+var scope;
+var scope2;
+var scope3;
+var scope4;
+var yn;
+yn = parseFloat(yn);
+var yt;
+var code2;
+var code;
+var code3;
+var code4;
+var node2;
+var node;
+var node3;
+var node4;
+var k;
+var k2;
+var k3;
+var k4;
+var th;
+var yk;
+if(t2 === "null"){
+for(var i = 0;error != 0.0;i++){
+	if(i > 0){
+		yt = yn;
+		yn =  yn + (h/6)*(k+k2+k3+k4);
+		error = yn - yt;
+	}
+	if(i==0){
+		yn = y;
+	}
+	scope = {
+    t: t1,
+    y: yn
+};
+node2 = math.parse(ft, scope);
+code2 = node2.compile();
+k = code2.eval(scope);
+th = t1+(h/2);
+yk = yn + (h*k)/2;
+scope2 = {
+	t:th,
+	y:yk
+	};
+
+node = math.parse(ft, scope2);
+code = node.compile();
+k2 = code.eval(scope2);
+
+th = t1+(h/2);
+yk = yn + (h*k2)/2;
+scope3 = {
+	t:th,
+	y:yk
+	};
+
+node3 = math.parse(ft, scope3);
+code3 = node3.compile();
+k3 = code.eval(scope3);
+
+th = t1+h;
+yk = yn + h*k3;
+scope4 = {
+	t:th,
+	y:yk
+	};
+
+node4 = math.parse(ft, scope4);
+code4 = node4.compile();
+k4 = code.eval(scope4);
+t1 = t1 + h;
+t1 = t1.toFixed(2);
+t1 = parseFloat(t1);
+}
+}else{
+t2 = parseFloat(t2);
+for(var i = 0;t1 != t2;i++){
+	if(i > 0){
+		yt = yn;
+		yn =  yn + (h/6)*(k+k2+k3+k4);
+		error = yn - yt;
+	}
+	if(i==0){
+		yn = y;
+	}
+	scope = {
+    t: t1,
+    y: yn
+};
+node2 = math.parse(ft, scope);
+code2 = node2.compile();
+k = code2.eval(scope);
+th = t1+(h/2);
+yk = yn + (h*k)/2;
+scope2 = {
+	t:th,
+	y:yk
+	};
+
+node = math.parse(ft, scope2);
+code = node.compile();
+k2 = code.eval(scope2);
+
+th = t1+(h/2);
+yk = yn + (h*k2)/2;
+scope3 = {
+	t:th,
+	y:yk
+	};
+
+node3 = math.parse(ft, scope3);
+code3 = node3.compile();
+k3 = code.eval(scope3);
+
+th = t1+h;
+yk = yn + h*k3;
+scope4 = {
+	t:th,
+	y:yk
+	};
+
+node4 = math.parse(ft, scope4);
+code4 = node4.compile();
+k4 = code.eval(scope4);
+t1 = t1+h;
+t1 = t1.toFixed(2);
+t1 = parseFloat(t1);
+}
+}
+console.log("f(t,y)"+yn);
+}
+//(-5,7)(-2,5)(1,3)(2,30)
+function lagranja(){
+var puntos = document.getElementById("lag").value;
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = puntoS.substr(c+1,cy-c-1);
+		entreUno = true;
+		t++;
+	}
+}
+
+var lagran = "";
+for(var i = 0; i < x.length; i++){
+var lagrang = "";
+var div = 0;
+var divF = 1;
+	for(var j = 0; j < x.length; j++){
+		if (i != j) {
+			div = x[i] - x[j];
+			divF = divF *div;
+			if(x[j] >= 0){
+				var xS = String(x[j]);
+				lagrang = lagrang.concat("(x-"+ xS + ")");
+			}else {			
+				var xS = x[j]*-1;
+				var xS = String(xS);
+				lagrang = lagrang.concat("(x+"+ xS + ")");
+			}
+		}
+	}
+
+if(y[i] < 0 && divF < 0){
+y[i] = y[i] * -1;
+divF = divF * -1;
+
+}else if(divF < 0){
+y[i] = y[i] * -1;
+divF = divF * -1;
+}
+if(i == 0 ){
+lagran = lagran.concat("("+y[i]+"/"+divF+") ");
+}else if(y[i] < 0){
+lagran = lagran.concat("("+y[i]+"/"+divF+") ");
+}else{
+lagran = lagran.concat("+("+y[i]+"/"+divF+") ");
+}
+lagran = lagran.concat(lagrang);
+
+}
+console.log(lagran);
+}
+
+function newton(){
+var puntos = document.getElementById("nw").value; 
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = parseFloat(puntoS.substr(c+1,cy-c-1));
+		entreUno = true;
+		t++;
+	}
+}
+var newton = "";
+var nwR = [];
+var j =0;
+for(var i = 0;i==i;i++){
+if(i == 0 && j == 0){
+	var xS = String(y[0]);
+	newton = xS;
+}
+if (y.length == 1){
+break;
+}
+var r = (y[i+1]-y[i])/(x[i+1+j]-x[i]);
+y[i]=r;
+if(i == 0){
+nwR[j] = r; 
+}
+if(i == y.length - 2){
+i = -1;
+j++;
+y.pop();
+}
+}
+for(var i = 0; i < nwR.length; i++){
+if(nwR[i] >= 0){
+			var xS = String(nwR[i]);
+			newton = newton.concat("+"+ xS);
+		}else {			
+			newton = newton.concat(nwR[i]);
+		}
+	for(var j = 0; j <= i; j++){
+		if(x[j] >= 0){
+			var xS = String(x[j]);
+			newton = newton.concat("(x-"+ xS + ")");
+		}else {			
+			var xS = x[j]*-1;
+			var xS = String(xS);
+			newton = newton.concat("(x+"+ xS + ")");
+		}
+	}
+}
+console.log(newton);
+}
+
+function splinesLineales(){
+var puntos = document.getElementById("li").value; 
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = parseFloat(puntoS.substr(c+1,cy-c-1));
+		entreUno = true;
+		t++;
+	}
+}
+var m = 0;
+var b = 0; 
+var x1 = 0;
+var x0 = 0;
+var recta = "";
+var rectaE = [];
+for(var i = 0;i < x.length-1;i++){
+m = (y[i+1]-y[i])/(x[i+1]-x[i]);
+b = y[i]-m*x[i];
+m = String(m);
+b = String(b);
+x0 = x[i];
+x1 = x[i+1];
+x0 = String(x0);
+x1 = String(x1);
+if(b >= 0){
+recta = recta.concat(m+"x+"+b+"		"+x0+"<=X<="+x1);
+rectaE[i]= recta;
+recta = "";
+}else{
+recta = recta.concat(m+"x"+b);
+rectaE[i]= recta;
+recta = "";
+}
+}
+console.log(rectaE);
+}
+function operaciones(){
+var n = document.getElementById("op").value;
+var n2 = Math.pow(n,2);
+var resp = ((n2-n)*(4*n+1))/6
+console.log(resp);
+}
+
+function splinesCuadraticos(){
+var puntos = document.getElementById("cu").value; 
+var puntoS = String(puntos);
+var x = [];
+var y = [];
+var n = puntoS.length;
+var c = 0;
+var cy = 0;
+var t = 0;
+var entreUno = true;
+for(var i = 0; i < n ;i++){
+	if(puntoS.charAt(i) === "("){
+		for(var j = i; j == j; j++) {
+			if(puntoS.charAt(j) === "," && entreUno) {
+				c = j;
+				entreUno = false;
+			}
+			if(puntoS.charAt(j) === ")"){
+				cy = j;
+				break;
+			}
+		}
+		x[t] = parseFloat(puntoS.substr(i+1,c));
+		y[t] = parseFloat(puntoS.substr(c+1,cy-c-1));
+		entreUno = true;
+		t++;
+	}
+}
+//sin derivar
+var sinDerivada = "";
+var Derivada = [];
+var pDerivada = [];
+var sDerivada = [];
+var Derivada2 = [];
+var a = 0;
+var b = 0;
+var c = 0;
+var a2 = 0;
+var b2 = 0;
+var c2 = 0;
+var am = "+";
+var bm = "+";
+var cm = "+";
+for(var i = 0;i < x.length;i++){
+a = x[i];
+a = Math.pow(a,3);
+b = x[i];
+b = Math.pow(b,2);
+c = x[i];
+a2 = x[i+1];
+a2 = Math.pow(a2,3);
+b2 = x[i+1];
+b2 = Math.pow(b2,2);
+c2 = x[i+1];
+if(a >= 0){
+a = String(a);
+a = am.concat(a);
+}
+if(b >= 0){
+b = String(b);
+b = bm.concat(b);
+}
+if(c >= 0){
+c = String(c);
+c = cm.concat(c);
+}
+if(x[i+2] != null){
+if(a2 >= 0){
+a2 = String(a2);
+a2 = am.concat(a2);
+}
+if(b2 >= 0){
+b2 = String(b2);
+b2 = bm.concat(b2);
+}
+if(c2 >= 0){
+c2 = String(c2);
+c2 = cm.concat(c2);
+}
+sinDerivada = sinDerivada.concat(a2+"a"+b2+"b"+c2+"c"+"+d="+y[i]+" "+x[i+1]+" ");
+Derivada2[i] = sinDerivada;
+sinDerivada = "";
+}
+sinDerivada = sinDerivada.concat(a+"a"+b+"b"+c+"c"+"+d="+y[i]+" "+x[i]+" ");
+Derivada[i] = sinDerivada;
+sinDerivada = "";
+}
+//primera derivada
+for(var i = 0;i < x.length;i++){
+if(x[i+2] != null){
+a = Math.pow(x[i+1],2);
+a = a*3;
+b = 2*x[i+1];
+if(a >= 0){
+a = String(a);
+a = am.concat(a);
+}
+if(b >= 0){
+b = String(b);
+b = bm.concat(b);
+}
+sinDerivada = sinDerivada.concat(a+"a"+b+"b"+"+c="+a+"a"+b+"b"+"+c");
+pDerivada[i] = sinDerivada;
+sinDerivada = "";
+}
+}
+//segunda derivada
+for(var i = 0;i < x.length;i++){
+if(x[i+2] != null){
+a = x[i+1];
+a = 6*a;
+if(a >= 0){
+a = String(a);
+a = am.concat(a);
+}
+sinDerivada = sinDerivada.concat(a+"a"+"2b="+a+"a"+"2b");
+sDerivada[i] = sinDerivada;
+sinDerivada = "";
+}
+}
+console.log(Derivada);
+console.log(Derivada2);
+console.log(pDerivada);
+console.log(sDerivada);
+console.log(6*x[0]+"a+"+2*x[0]+"b");
+console.log(6*[x.length-1]+"a+"+2*[x.length-1]+"b");
+}
+
+function equaciones() {
+  $( "#pegar" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    oli += '  <input type="text" id="mat' + i + '' + j +'">';
+  }
+  oli += '<br>';
+}
+
+$( "#pegar" ).append(oli);
+
+  /*
+            var mat00 = document.getElementById("mat00").value;
+            var mat01 = document.getElementById("mat01").value;
+            var mat02 = document.getElementById("mat02").value;
+            var mat10 = document.getElementById("mat10").value;
+            var mat11 = document.getElementById("mat11").value;
+            var mat12 = document.getElementById("mat12").value;
+            var mat20 = document.getElementById("mat20").value;
+            var mat21 = document.getElementById("mat21").value;
+            var mat22 = document.getElementById("mat22").value;
+
+
+            var array = [[mat00, mat01, mat02],[mat10, mat11, mat12],[mat20, mat21, mat22]];
+
+
+/*array.forEach(function (value, index, matrix) {
+  console.log('value:', value, 'index:', index);
+});
+
+var a = array[0][0];
+var b = array[1][0];
+var c = array[2][0];
+
+var L = [[a,0,0],[b,0,0],[c,0,0]];
+var U = [[1,0,0],[0,1,0],[0,0,1]];
+
+console.log(array[0][0]);
+
+
+var items = [[1,2],[3,4],[5,6]];
+alert(L[0][0]); // 1
+
+
+  //console.log(L[0,0]);
+
+*/
+};
+
+
+            </script>
+        </div>
+
+    </body>
+</html>

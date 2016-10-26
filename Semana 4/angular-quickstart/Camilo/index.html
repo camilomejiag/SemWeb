@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <title>oli</title>
+        <script src="../node_modules/mathjs/dist/math.js"></script>
+        <script src="../js/fraction.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    </head>
+    <body>
+
+        <div>pruebas</div>
+        <div>
+          Tamano Matriz:
+          <input type="text" name="name" id="tamano" value="3">
+          <button onclick="equaciones()"  >Agregar a Watchlist?</button>
+          <br>
+          Matriz A
+          <div id="pegar"></div><br>
+          Matriz L
+          <div id="L"></div><br>
+          Matriz U
+          <div id="U"></div><br>
+          <div id="boton"></div>
+
+
+            <script>
+
+function U() {
+  $( "#U" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli2 = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    if (j>=i) {
+      oli2 += '  <input type="text" id="U' + i + '' + j +'" value="U' + (i+1) + '' + (j+1) +'">';
+    } else {
+    oli2 += '  <input type="text" id="U' + i + '' + j +'" value="0">';
+  }
+}
+oli2 += '<br>';
+}
+
+$( "#U" ).append(oli2);
+};
+
+function L() {
+  $( "#L" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli3 = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    if (j<=i) {
+      oli3 += '  <input type="text" id="L' + i + '' + j +'"value="L' + (i+1) + '' + (j+1) +'">';
+    } else {
+    oli3 += '  <input type="text" id="L' + i + '' + j +'" value="0">';
+  }
+}
+oli3 += '<br>';
+}
+
+
+$( "#L" ).append(oli3);
+};
+
+function equaciones() {
+  $( "#pegar" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli = "";
+var bla = 1;
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    oli += '  <input type="text" id="mat' + i + '' + j +'" value="' + bla + '">';
+    bla++;
+  }
+  oli += '<br>';
+}
+
+$( "#pegar" ).append(oli);
+U();
+L();
+
+var btn = '<button onclick="Resolver()">Resolver</button>'
+$( "#boton" ).append(btn);
+};
+
+function Resolver() {
+  var tamano = document.getElementById("tamano").value;
+  var oli = "";
+
+  for (var i = 1; i < tamano ; i++) {
+    console.log();
+    var suma = 0;
+    for (var p = 0; p < i-1; p++) {
+      suma += document.getElementById('L' + (i-1) + p +'').value * document.getElementById('U' + p + (i-1) +'').value;
+
+      }
+      console.log(suma);
+      document.getElementById('U' + (i-1) + (i-1) +'').value = (document.getElementById('mat' + (i-1) + (i-1) +'').value - suma)/document.getElementById('L' + (i-1) + (i-1) +'').value;
+
+        for (var j = (i+1); j < tamano; j++) {
+        suma = 0;
+        for (var p = 0; p < i-1; p++) {
+          suma +=   document.getElementById('L' + (i-1) + p +'').value * document.getElementById('U' + p + (j-1) +'').value;
+        }
+
+        document.getElementById('U' + (i-1) + (j-1) +'').value = (document.getElementById('mat' + (i-1) + (j-1) +'').value - suma) / document.getElementById('L' + (i-1) + (i-1) +'').value;
+      }
+
+      for (var k = i+1; k < tamano; k++) {
+        suma = 0;
+        for (var p = 0; p < tamano-1; p++) {
+          suma += (document.getElementById('L' + (k-1) + p +'').value - suma)/document.getElementById('U' + p + (i-1) +'').value;
+        }
+        document.getElementById('L' + (k-1) + (i-1) +'').value = (document.getElementById('mat' + (k-1) + (i-1) +'').value - suma)/document.getElementById('mat' + (i-1) + (i-1) +'').value;
+      }
+
+}
+
+}
+
+
+            </script>
+        </div>
+
+    </body>
+</html>

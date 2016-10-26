@@ -1,0 +1,104 @@
+ <!DOCTYPE html>
+
+<html>
+    <head>
+
+        <title>oli</title>
+        <script src="../node_modules/mathjs/dist/math.js"></script>
+        <script src="../js/m4th.min.js"></script>
+        <script src="../js/fraction.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <style>
+        .vectb{
+          margin-left: 5%;
+        }
+        </style>
+    </head>
+    <body>
+
+        <div>pruebas</div>
+        <div>
+          Cantidad Puntos:
+          <input type="text" name="name" id="tamano" value="3">
+          <button onclick="equaciones()"  >Agregar a Watchlist?</button>
+          <br>
+          X          <span style="margin-left: 24%"> Y</span>
+          <div id="pegar"></div><br>
+
+          <div id="boton"></div>
+
+
+            <script>
+
+
+function equaciones() {
+  $( "#pegar" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli = "";
+
+
+
+  for (var i = 0; i < tamano; i++) {
+      oli += '  <input type="text" id="mat' + i +'" value="' + i +'">';
+    oli += '<input class="vectb" type="text" id="mat2' + i +'" value="' + (i+1) + '"><br>';
+
+  }
+
+
+$( "#pegar" ).append(oli);
+
+var btn = '<button onclick="Resolver()">Resolver</button>'
+$( "#boton" ).append(btn);
+};
+
+
+/* Codigo m4th y fraction.js
+var M = m4th.matrix;
+var A, y, LU, x, Ainv;
+// create some matrices:
+A = M([
+    4,  -2, 1,
+   -1, 1,  -3,
+   10,  3,  -1
+]);
+
+y = M(3, [
+    -3,
+  4,
+   0
+]);
+
+// LU decompose matrix A
+LU = m4th.lu(A); // node.js: require('m4th/lu')(A);
+// calculate solution for: y = A*x
+x = LU.solve(y);
+var f1 = new Fraction(parseFloat(x.get(0,0)));
+console.log(f1.numerator + '/' + f1.denominator);
+var f2 = new Fraction(parseFloat(x.get(1,0)));
+console.log(f2.numerator + '/' + f2.denominator);
+var f3 = new Fraction(parseFloat(x.get(2,0)));
+console.log(f3.numerator + '/' + f3.denominator);
+*/
+
+function Resolver() {
+  var tamano = document.getElementById("tamano").value;
+  var oli = "";
+
+  var M = m4th.matrix;
+  var A, U, L, y;
+  A = M(parseInt(tamano),2);
+for (var i = 0; i < tamano; i++) {
+  A.set(i, 0, parseInt(document.getElementById('mat' + i).value));
+  A.set(i, 1, parseInt(document.getElementById('mat2' + i).value));
+}
+console.log(A);
+};
+
+
+
+            </script>
+        </div>
+
+    </body>
+</html>

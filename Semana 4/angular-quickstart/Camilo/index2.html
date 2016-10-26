@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <title>oli</title>
+        <script src="../node_modules/mathjs/dist/math.js"></script>
+        <script src="../js/m4th.min.js"></script>
+        <script src="../js/fraction.js"></script>
+        <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <style>
+        .vectb{
+          margin-left: 5%;
+        }
+        </style>
+    </head>
+    <body>
+
+        <div>pruebas</div>
+        <div>
+          Tamano Matriz:
+          <input type="text" name="name" id="tamano" value="3">
+          <button onclick="equaciones()"  >Agregar a Watchlist?</button>
+          <br>
+          Matriz A
+          <div id="pegar"></div><br>
+          Matriz L
+          <div id="L"></div><br>
+          Matriz U
+          <div id="U"></div><br>
+          <div id="boton"></div>
+
+
+            <script>
+
+function U() {
+  $( "#U" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli2 = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    if (j>=i) {
+      oli2 += '  <input type="text" id="U' + i + '' + j +'" placeholder="U' + (i+1) + '' + (j+1) +'">';
+    } else {
+    oli2 += '  <input type="text" id="U' + i + '' + j +'" placeholder="0">';
+  }
+}
+oli2 += '<br>';
+}
+
+$( "#U" ).append(oli2);
+};
+
+function L() {
+  $( "#L" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli3 = "";
+
+for (var i = 0; i < tamano; i++) {
+  for (var j = 0; j < tamano; j++) {
+    if (j<=i) {
+      oli3 += '  <input type="text" id="L' + i + '' + j +'" placeholder="L' + (i+1) + '' + (j+1) +'">';
+    } else {
+    oli3 += '  <input type="text" id="L' + i + '' + j +'" placeholder="0">';
+  }
+}
+oli3 += '<br>';
+}
+
+
+$( "#L" ).append(oli3);
+};
+
+function equaciones() {
+  $( "#pegar" ).empty();
+
+var tamano = document.getElementById("tamano").value;
+var oli = "";
+
+
+
+  for (var i = 0; i < tamano; i++) {
+    for (var j = 0; j < tamano; j++) {
+      oli += '<input type="text" id="mat' + i + '' + j +'" value="' + j +'">';
+    }
+    oli += '<input class="vectb" type="text" id="b' + i + '"><br>';
+  }
+
+
+
+
+
+$( "#pegar" ).append(oli);
+U();
+L();
+
+var btn = '<button onclick="Resolver()">Resolver</button>'
+$( "#boton" ).append(btn);
+};
+
+
+/* Codigo m4th y fraction.js
+var M = m4th.matrix;
+var A, y, LU, x, Ainv;
+// create some matrices:
+A = M([
+    4,  -2, 1,
+   -1, 1,  -3,
+   10,  3,  -1
+]);
+
+y = M(3, [
+    -3,
+  4,
+   0
+]);
+
+// LU decompose matrix A
+LU = m4th.lu(A); // node.js: require('m4th/lu')(A);
+// calculate solution for: y = A*x
+x = LU.solve(y);
+var f1 = new Fraction(parseFloat(x.get(0,0)));
+console.log(f1.numerator + '/' + f1.denominator);
+var f2 = new Fraction(parseFloat(x.get(1,0)));
+console.log(f2.numerator + '/' + f2.denominator);
+var f3 = new Fraction(parseFloat(x.get(2,0)));
+console.log(f3.numerator + '/' + f3.denominator);
+*/
+
+function Resolver() {
+  var tamano = document.getElementById("tamano").value;
+  var oli = "";
+  var matrizA = [,];
+  var matrizU = [,];
+  var matrizL = [,];
+
+  var M = m4th.matrix;
+  var A, U, L, y;
+  A = M(parseInt(tamano));
+  console.log('Matrix A has ' + A.rows + ' rows and ' + A.columns + ' columns.');
+  U = M(parseInt(tamano));
+  L = M(parseInt(tamano));
+  b = M(parseInt(tamano), 1);
+
+var matriz = parseInt(document.getElementById('mat00').value);
+var matrizU = parseInt(document.getElementById('L00').value);
+var matrizL = parseInt(document.getElementById('U00').value);
+var bb = parseInt(document.getElementById('b0').value);
+  for (var i = 1; i < tamano; i++) {
+    for (var j = 1; j < tamano; j++) {
+      matriz += ", " + parseInt(document.getElementById('mat' + (i) + '' + (j)).value);
+      matrizU += ", " + parseInt(document.getElementById('U' + (i) + '' + (j)).value);
+      matrizL += ", " + parseInt(document.getElementById('L' + (i) + '' + (j)).value);
+
+      //U.set(i,j,parseInt(document.getElementById('U' + (i-1) + '' + (j-1)).value));
+
+    //  L.set(i,j,parseInt(document.getElementById('L' + (i-1) + '' + (j-1)).value));
+
+
+    }
+    bb +=  ", " + parseInt(document.getElementById('b' + (i)).value);
+  }
+
+  A = M([matriz]);
+  y = M([bb]);
+  LU = m4th.lu(A);
+  x = LU.solve(y);
+  console.log(x);
+
+  /*
+  var A, y, LU, x, Ainv;
+  // create some matrices:
+  A = M([matriz]);
+
+  y = M(3, [
+      8,
+    -11,
+     -3
+  ]);
+
+  // LU decompose matrix A
+  LU = m4th.lu(A); // node.js: require('m4th/lu')(A);
+  // calculate solution for: y = A*x
+  x = LU.solve(y);
+  */
+
+}
+
+
+
+
+/*
+  for (var i = 1; i < tamano+1; i++) {
+    //for(int i = 1; i < n+1; i++)
+
+    var suma = 0;
+    for (var j = 0; j < i-1; j++) {
+      //for(int p = 0; p < k-1; p++)
+      suma += matrizA[i-1,j] * matrizU[j,i-1];
+      //suma += L[i-1][p] * U[p][i-1];
+
+      }
+      matrizU[i-1,i-1] = ( matrizA[i-1,i-1] - suma)/ matrizL[i-1,i-1];
+      //U[i-1][i-1] = (A[i-1][i-1] - suma)/L[i-1][i-1];
+        for (var j = (i+1); j < tamano; j++) {
+          //for(int j = k+1; j < n+1; j++){
+        suma = 0;
+        for (var p = 0; p < i - 1; p++) {
+          suma += matrizL[i-1,p] * matrizU[p,j-1];
+          //suma += L[i-1][p] * U[p][j-1];
+        }
+
+        matrizU[i-1,j-1] = (matrizA[i-1,j-1] - suma) /matrizL[i-1,i-1];
+        //*U[i-1][j-1] = (A[i-1][j-1] - suma)/L[i-1][i-1];
+      }
+
+      for (var k = i+1; k < tamano; k++) {
+        //for(int k = i+1; i < n+1; k++)
+        suma = 0;
+        for (var p = 0; p < i-1; p++) {
+          //for(int p = 0; p < i-1; p++){
+          suma += matrizL[k-1,p] * matrizU[p,i-1];
+          //suma += L[i-1][p] * U[p][i-1];
+        }
+        matrizL[k-1,i-1] = (matrizA[k-1,i-1] - suma)/matrizU[i-1,i-1];
+        //L[i-1][k-1] = (A[i-1][k-1] - suma)/U[k-1][k-1];
+      }
+    }
+    */
+
+
+
+
+
+
+
+
+            </script>
+        </div>
+
+    </body>
+</html>
