@@ -1,0 +1,19 @@
+{
+  "name": "clase2",
+  "version": "1.0.0",
+  "description": "Una pagina web sencilla",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Web",
+    "Desing",
+    "Front-end"
+  ],
+  "author": "Yo",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
